@@ -52,9 +52,3 @@
 - XGBoost, RandomForest, CatBoost
 - Optuna (하이퍼파라미터 최적화)
 - Statsmodels (회귀분석)
-
----
-
-## 📂 파일 구조
-
-├── Correlation Analysis.ipynb # 관계 분석 및 EDA ├── Modeling.ipynb # 모델링 및 최적화 ├── data_train.csv # 훈련 데이터 ├── data_test.csv # 테스트 데이터 ├── submission_example.csv # 제출 포맷 예시 ├── optuna/ # Optuna study 저장 폴더 ├── submission.csv # 최종 제출 파일
