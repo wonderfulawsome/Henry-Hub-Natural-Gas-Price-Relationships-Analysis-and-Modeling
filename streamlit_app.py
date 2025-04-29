@@ -13,13 +13,29 @@ from xgboost import XGBRegressor
 st.set_page_config(page_title="Henry Hub Gas Dashboard", layout="wide")
 sns.set_style("whitegrid")
 
-# 한글 폰트
-font_path = "C:/Windows/Fonts/malgun.ttf"
-font_name = fm.FontProperties(fname=font_path).get_name()
-plt.rc("font", family=font_name)
-plt.rcParams["axes.unicode_minus"] = False
+# ── 한글 폰트 설정 ──
+import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
+from pathlib import Path
 
-TARGET = "Natural_Gas_US_Henry_Hub_Gas"
+def set_korean_font():
+    # ① 리포지토리에 폰트를 넣어둔 경우
+    local_font = Path(__file__).parent / "assets" / "NanumGothic.ttf"
+    if local_font.exists():
+        plt.rc('font', family=fm.FontProperties(fname=str(local_font)).get_name())
+        return
+
+    # ② 환경에 이미 설치돼 있을 수 있는 후보들
+    for cand in ["NanumGothic", "Noto Sans KR", "AppleGothic"]:
+        if cand in fm.findSystemFonts(fontpaths=None, fontext='ttf'):
+            plt.rc('font', family=cand)
+            return
+
+    # ③ 마지막 fallback
+    plt.rc('font', family="DejaVu Sans")
+
+set_korean_font()
+plt.rcParams["axes.unicode_minus"] = False
 
 # ── 데이터 로드 ──
 @st.cache_data(show_spinner=False)
